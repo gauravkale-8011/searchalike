@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - VisuaMatch</title>
+    <link rel="icon" type="image/png" sizes="32x32"
+      href="{{ url_for('static', filename='icons/icon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .results-container {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .query-section {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(45, 53, 97, 0.5) 100%);
+            border: 2px solid var(--border);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 50px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .query-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 18px;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        .query-info h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .query-meta {
+            display: flex;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .meta-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #6b7280;
+            font-weight: 700;
+        }
+
+        .meta-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            border-color: var(--primary);
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .results-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 80px 40px;
+            color: #6b7280;
+        }
+
+        .no-results-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            animation: fadeIn 0.8s ease-out 0.3s backwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(45, 53, 97, 0.5) 100%);
+            border: 2px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: slideUp 0.6s ease-out backwards;
+            cursor: pointer;
+        }
+
+        .result-card:nth-child(1) { animation-delay: 0s; }
+        .result-card:nth-child(2) { animation-delay: 0.1s; }
+        .result-card:nth-child(3) { animation-delay: 0.2s; }
+        .result-card:nth-child(4) { animation-delay: 0.3s; }
+        .result-card:nth-child(5) { animation-delay: 0.4s; }
+        .result-card:nth-child(n+6) { animation-delay: 0.5s; }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.25);
+        }
+
+        .result-image-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 100%;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 110, 0.05));
+        }
+
+        .result-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .result-card:hover .result-image {
+            transform: scale(1.1);
+        }
+
+        .result-rank {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 16px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .result-details {
+            padding: 20px;
+        }
+
+        .result-score-bar {
+            margin-bottom: 15px;
+        }
+
+        .score-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .score-value {
+            color: var(--primary);
+        }
+
+        .score-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 3px;
+            animation: fillBar 0.8s ease-out;
+        }
+
+        @keyframes fillBar {
+            from {
+                width: 0;
+            }
+            to {
+                width: var(--width);
+            }
+        }
+
+        .result-filename {
+            font-size: 13px;
+            color: #9ca3af;
+            word-break: break-word;
+            font-family: 'Courier New', monospace;
+            background: var(--dark);
+            padding: 8px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        .result-filename-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6b7280;
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+
+        .download-btn {
+            width: 100%;
+            margin-top: 12px;
+            padding: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border: none;
+            color: var(--dark);
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .model-info {
+            margin-top: 50px;
+            padding: 25px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 2px solid var(--border);
+            border-radius: 15px;
+            text-align: center;
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .model-info strong {
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .query-section {
+                grid-template-columns: 1fr;
+            }
+
+            .query-image {
+                width: 100%;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🔍</div>
+                    <span class="logo-text">VisuaMatch</span>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Results:</span>
+                        <span class="stat-value">{{ num_results }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <a href="{{ url_for('index') }}" class="back-btn">← New Search</a>
+
+            <div class="results-container">
+                <div class="query-section">
+                    <img src="{{ url_for('static', filename='uploads/' + query_image) }}" alt="Query" class="query-image">
+                    <div class="query-info">
+                        <h2>Query Image</h2>
+                        <div class="query-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Filename</span>
+                                <span class="meta-value" style="color: #e0e0ff; font-family: monospace;">{{ query_image }}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Results Found</span>
+                                <span class="meta-value">{{ num_results }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if similar_images %}
+                    <div style="margin-bottom: 40px;">
+                        <h3 class="results-title">🎯 Top {{ num_results }} Matches</h3>
+
+                        <div class="results-grid">
+                            {% for image in similar_images %}
+                                <div class="result-card">
+                                    <div class="result-image-wrapper">
+                                        <img src="{{ image.path }}" alt="Result" class="result-image">
+
+                                        <div class="result-rank">{{ loop.index }}</div>
+                                    </div>
+                                    <div class="result-details">
+                                        <div class="result-score-bar">
+                                            <div class="score-label">
+                                                <span>Similarity</span>
+                                                <span class="score-value">{{ image.score }}%</span>
+                                            </div>
+                                            <div class="score-bar">
+                                                <div class="score-fill" style="--width: {{ image.score }}%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="result-filename">
+                                            <span class="result-filename-label">📄 File</span>
+                                            {{ image.filename }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="no-results">
+                        <div class="no-results-icon">🔍</div>
+                        <h3 style="color: var(--primary); margin-bottom: 10px;">No Matches Found</h3>
+                        <p>Try uploading a different image</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if model_info %}
+                <div class="model-info">
+                    <strong>Model:</strong> {{ model_info.model_type }} |
+                    <strong>Embedding:</strong> {{ model_info.embedding_dim }}D |
+                    <strong>Device:</strong> {{ model_info.device }}
+                </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <script>
+        // Add download functionality
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const src = this.closest('.result-card').querySelector('.result-image').src;
+                if (src) {
+                    const a = document.createElement('a');
+                    a.href = src;
+                    a.download = true;
+                    a.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+2025-12-24 16:41:15,590 - __main__ - INFO - ============================================================
+2025-12-24 16:41:15,591 - __main__ - INFO - TRIPLET NETWORK TRAINING
+2025-12-24 16:41:15,592 - __main__ - INFO - ============================================================
+2025-12-24 16:41:15,593 - __main__ - INFO - Configuration: {'data_dir': 'data/images', 'label_mode': 'folders', 'val_split': 0.2, 'backbone': 'resnet50', 'embedding_dim': 128, 'pretrained': True, 'freeze_backbone': False, 'mode': 'online', 'loss_type': 'hardest', 'margin': 1.0, 'epochs': 50, 'batch_size': 32, 'lr': 0.0001, 'weight_decay': 0.0001, 'early_stopping': 10, 'save_every': 5, 'device': 'cuda', 'num_workers': 4, 'checkpoint_dir': 'checkpoints', 'log_dir': 'runs', 'resume': None}
+2025-12-24 16:41:15,594 - __main__ - INFO - Loading data...
+2025-12-24 16:41:15,594 - __main__ - INFO - Generating labels from folder structure...
+2025-12-24 16:41:23,015 - src.triplet_dataset - INFO - Found 25041 images across 2 classes
+2025-12-24 16:41:23,015 - __main__ - INFO - Loaded 25041 images with 2 unique labels
+2025-12-24 16:41:23,113 - __main__ - INFO - Train: 20032 images, Val: 5009 images
+2025-12-24 16:41:23,115 - __main__ - INFO - Creating data loaders...
+2025-12-24 16:41:23,115 - src.triplet_dataset - INFO - OnlineTripletDataset initialized with 20032 images
+2025-12-24 16:41:23,119 - src.triplet_dataset - INFO - BalancedBatchSampler: 2 classes × 16 samples = 32 per batch, 626 batches total
+2025-12-24 16:41:23,120 - src.triplet_dataset - INFO - OnlineTripletDataset initialized with 5009 images
+2025-12-24 16:41:23,121 - __main__ - INFO - Creating model...
+2025-12-24 16:41:24,104 - src.triplet_network - INFO - TripletNetwork initialized with resnet50 backbone, embedding_dim=128
+2025-12-24 16:41:24,219 - __main__ - INFO - Creating hardest triplet loss with margin=1.0
+2025-12-24 16:41:24,373 - src.triplet_network - INFO - OnlineTripletLoss initialized with margin=1.0, selector=hardest
+2025-12-24 16:41:26,472 - src.triplet_trainer - INFO - TripletTrainer initialized on cuda
+2025-12-24 16:41:26,474 - __main__ - INFO - Starting training...
+2025-12-24 16:41:26,475 - src.triplet_trainer - INFO - Starting training for 50 epochs
+2025-12-24 16:45:31,326 - __main__ - INFO - ============================================================
+2025-12-24 16:45:31,327 - __main__ - INFO - TRIPLET NETWORK TRAINING
+2025-12-24 16:45:31,328 - __main__ - INFO - ============================================================
+2025-12-24 16:45:31,329 - __main__ - INFO - Configuration: {'data_dir': 'data/images', 'label_mode': 'folders', 'val_split': 0.2, 'backbone': 'resnet50', 'embedding_dim': 128, 'pretrained': True, 'freeze_backbone': False, 'mode': 'online', 'loss_type': 'hardest', 'margin': 1.0, 'epochs': 50, 'batch_size': 32, 'lr': 0.0001, 'weight_decay': 0.0001, 'early_stopping': 10, 'save_every': 5, 'device': 'cuda', 'num_workers': 4, 'checkpoint_dir': 'checkpoints', 'log_dir': 'runs', 'resume': None}
+2025-12-24 16:45:31,330 - __main__ - INFO - Loading data...
+2025-12-24 16:45:31,330 - __main__ - INFO - Generating labels from folder structure...
+2025-12-24 16:45:37,564 - src.triplet_dataset - INFO - Found 25041 images across 2 classes
+2025-12-24 16:45:37,565 - __main__ - INFO - Loaded 25041 images with 2 unique labels
+2025-12-24 16:45:37,628 - __main__ - INFO - Train: 20032 images, Val: 5009 images
+2025-12-24 16:45:37,629 - __main__ - INFO - Creating data loaders...
+2025-12-24 16:45:37,629 - src.triplet_dataset - INFO - OnlineTripletDataset initialized with 20032 images
+2025-12-24 16:45:37,631 - src.triplet_dataset - INFO - BalancedBatchSampler: 2 classes × 16 samples = 32 per batch, 626 batches total
+2025-12-24 16:45:37,632 - src.triplet_dataset - INFO - OnlineTripletDataset initialized with 5009 images
+2025-12-24 16:45:37,632 - __main__ - INFO - Creating model...
+2025-12-24 16:45:38,080 - src.triplet_network - INFO - TripletNetwork initialized with resnet50 backbone, embedding_dim=128
+2025-12-24 16:45:38,080 - __main__ - INFO - Creating hardest triplet loss with margin=1.0
+2025-12-24 16:45:38,080 - src.triplet_network - INFO - OnlineTripletLoss initialized with margin=1.0, selector=hardest
+2025-12-24 16:45:38,366 - src.triplet_trainer - INFO - TripletTrainer initialized on cuda
+2025-12-24 16:45:38,367 - __main__ - INFO - Starting training...
+2025-12-24 16:45:38,367 - src.triplet_trainer - INFO - Starting training for 50 epochs
+2025-12-24 16:51:52,289 - src.triplet_trainer - INFO - Epoch 1/50 - Train Loss: 0.3611, Val Loss: 0.2561
+2025-12-24 16:51:53,400 - src.triplet_trainer - INFO - Checkpoint saved: checkpoints/best_model.pth
+2025-12-24 16:51:54,766 - src.triplet_trainer - INFO - New best model saved with val_loss: 0.2561
+2025-12-24 16:56:34,322 - src.triplet_trainer - INFO - Epoch 2/50 - Train Loss: 0.2666, Val Loss: 0.2719
+2025-12-25 06:24:04,393 - __main__ - INFO - ============================================================
+2025-12-25 06:24:04,705 - __main__ - INFO - TRIPLET NETWORK TRAINING
+2025-12-25 06:24:04,707 - __main__ - INFO - ============================================================
+2025-12-25 06:24:04,708 - __main__ - INFO - Configuration: {'data_dir': 'data/images', 'label_mode': 'folders', 'val_split': 0.2, 'backbone': 'resnet50', 'embedding_dim': 128, 'pretrained': True, 'freeze_backbone': False, 'mode': 'online', 'loss_type': 'hardest', 'margin': 1.0, 'epochs': 50, 'batch_size': 32, 'lr': 0.0001, 'weight_decay': 0.0001, 'early_stopping': 10, 'save_every': 5, 'device': 'cuda', 'num_workers': 4, 'checkpoint_dir': 'checkpoints', 'log_dir': 'runs', 'resume': None}
+2025-12-25 06:24:04,708 - __main__ - INFO - Loading data...
+2025-12-25 06:24:04,709 - __main__ - INFO - Generating labels from folder structure...
+2025-12-25 06:24:47,785 - src.triplet_dataset - INFO - Found 25041 images across 2 classes
+2025-12-25 06:24:47,786 - __main__ - INFO - Loaded 25041 images with 2 unique labels
+2025-12-25 06:24:48,454 - __main__ - INFO - Train: 20032 images, Val: 5009 images
+2025-12-25 06:24:48,534 - __main__ - INFO - Creating data loaders...
+2025-12-25 06:24:48,637 - src.triplet_dataset - INFO - OnlineTripletDataset initialized with 20032 images
+2025-12-25 06:24:48,760 - src.triplet_dataset - INFO - BalancedBatchSampler: 2 classes × 16 samples = 32 per batch, 626 batches total
+2025-12-25 06:24:48,886 - src.triplet_dataset - INFO - OnlineTripletDataset initialized with 5009 images
+2025-12-25 06:24:48,997 - __main__ - INFO - Creating model...
+2025-12-25 06:24:50,686 - src.triplet_network - INFO - TripletNetwork initialized with resnet50 backbone, embedding_dim=128
+2025-12-25 06:24:50,759 - __main__ - INFO - Creating hardest triplet loss with margin=1.0
+2025-12-25 06:24:50,831 - src.triplet_network - INFO - OnlineTripletLoss initialized with margin=1.0, selector=hardest
+2025-12-25 06:24:51,927 - src.triplet_trainer - INFO - TripletTrainer initialized on cuda
+2025-12-25 06:24:51,928 - __main__ - INFO - Starting training...
+2025-12-25 06:24:51,928 - src.triplet_trainer - INFO - Starting training for 50 epochs
+2025-12-25 06:42:25,703 - src.triplet_trainer - INFO - Epoch 1/50 - Train Loss: 0.3872, Val Loss: 0.3113
+2025-12-25 06:42:32,180 - src.triplet_trainer - INFO - Checkpoint saved: checkpoints/best_model.pth
+2025-12-25 06:42:33,159 - src.triplet_trainer - INFO - New best model saved with val_loss: 0.3113
+2025-12-25 06:49:13,692 - src.triplet_trainer - INFO - Epoch 2/50 - Train Loss: 0.2361, Val Loss: 0.2181
+2025-12-25 06:49:14,630 - src.triplet_trainer - INFO - Checkpoint saved: checkpoints/best_model.pth
+2025-12-25 06:49:20,162 - src.triplet_trainer - INFO - New best model saved with val_loss: 0.2181
+2025-12-25 06:54:37,500 - src.triplet_trainer - INFO - Epoch 3/50 - Train Loss: 0.2589, Val Loss: 0.3547
+2025-12-25 06:59:31,996 - src.triplet_trainer - INFO - Epoch 4/50 - Train Loss: 0.2144, Val Loss: 0.2468
+2025-12-25 07:04:21,343 - src.triplet_trainer - INFO - Epoch 5/50 - Train Loss: 0.2318, Val Loss: 0.2761
+2025-12-25 07:04:22,562 - src.triplet_trainer - INFO - Checkpoint saved: checkpoints/checkpoint_epoch_5.pth
+2025-12-25 07:09:10,512 - src.triplet_trainer - INFO - Epoch 6/50 - Train Loss: 0.2195, Val Loss: 0.3789
+2025-12-25 07:13:57,225 - src.triplet_trainer - INFO - Epoch 7/50 - Train Loss: 0.2125, Val Loss: 0.2991
+2025-12-25 07:18:44,708 - src.triplet_trainer - INFO - Epoch 8/50 - Train Loss: 0.2245, Val Loss: 0.2603
+2025-12-25 07:23:32,096 - src.triplet_trainer - INFO - Epoch 9/50 - Train Loss: 0.1083, Val Loss: 0.2723
+2025-12-25 07:28:16,651 - src.triplet_trainer - INFO - Epoch 10/50 - Train Loss: 0.1052, Val Loss: 0.2315
+2025-12-25 07:28:18,243 - src.triplet_trainer - INFO - Checkpoint saved: checkpoints/checkpoint_epoch_10.pth
+2025-12-25 07:33:04,233 - src.triplet_trainer - INFO - Epoch 11/50 - Train Loss: 0.0775, Val Loss: 0.2190
+2025-12-25 07:37:49,108 - src.triplet_trainer - INFO - Epoch 12/50 - Train Loss: 0.0897, Val Loss: 0.2214
+2025-12-25 07:37:49,109 - src.triplet_trainer - INFO - Early stopping triggered after 12 epochs (no improvement for 10 epochs)
+2025-12-25 07:37:50,133 - src.triplet_trainer - INFO - Checkpoint saved: checkpoints/final_model.pth
+2025-12-25 07:37:50,729 - src.triplet_trainer - INFO - Training history saved: checkpoints/training_history.json
+2025-12-25 07:37:50,729 - src.triplet_trainer - INFO - Training completed!
+2025-12-25 07:37:50,731 - __main__ - INFO - Evaluating final embeddings...
+2025-12-25 07:38:30,509 - src.triplet_trainer - INFO - Embedding Evaluation Metrics:
+2025-12-25 07:38:30,511 - src.triplet_trainer - INFO -   Intra-class similarity: 0.9642 ± 0.2389
+2025-12-25 07:38:30,511 - src.triplet_trainer - INFO -   Inter-class similarity: -0.9637 ± 0.2397
+2025-12-25 07:38:30,511 - src.triplet_trainer - INFO -   Separation: 1.9279
+2025-12-25 07:38:30,856 - __main__ - INFO - Training completed successfully!
+2025-12-25 07:38:30,856 - __main__ - INFO - Best model saved at: checkpoints/best_model.pth
+2026-01-03 11:32:09,222 - __main__ - INFO - ============================================================
+2026-01-03 11:32:09,222 - __main__ - INFO - TRIPLET NETWORK TRAINING
+2026-01-03 11:32:09,222 - __main__ - INFO - ============================================================
+2026-01-03 11:32:09,222 - __main__ - INFO - Configuration: {'data_dir': 'data/images', 'label_mode': 'folders', 'val_split': 0.2, 'backbone': 'resnet50', 'embedding_dim': 128, 'pretrained': True, 'freeze_backbone': False, 'mode': 'online', 'loss_type': 'hardest', 'margin': 1.0, 'epochs': 50, 'batch_size': 32, 'lr': 0.0001, 'weight_decay': 0.0001, 'early_stopping': 10, 'save_every': 5, 'device': 'cuda', 'num_workers': 4, 'checkpoint_dir': 'checkpoints', 'log_dir': 'runs', 'resume': None}
+2026-01-03 11:32:09,223 - __main__ - INFO - Loading data...
+2026-01-03 11:32:09,223 - __main__ - INFO - Generating labels from folder structure...
+2026-01-03 11:32:09,320 - src.triplet_dataset - INFO - Found 24998 images across 2 classes
+2026-01-03 11:32:09,320 - __main__ - INFO - Loaded 24998 images with 2 unique labels
+2026-01-03 11:32:10,163 - __main__ - INFO - Train: 19998 images, Val: 5000 images
+2026-01-03 11:32:10,163 - __main__ - INFO - Creating data loaders...
+2026-01-03 11:32:10,164 - src.triplet_dataset - INFO - OnlineTripletDataset initialized with 19998 images
+2026-01-03 11:32:10,166 - src.triplet_dataset - INFO - BalancedBatchSampler: 2 classes � 16 samples = 32 per batch, 624 batches total
+2026-01-03 11:32:10,167 - src.triplet_dataset - INFO - OnlineTripletDataset initialized with 5000 images
+2026-01-03 11:32:10,168 - __main__ - INFO - Creating model...
+2026-01-03 11:32:10,466 - src.triplet_network - INFO - TripletNetwork initialized with resnet50 backbone, embedding_dim=128
+2026-01-03 11:32:10,467 - __main__ - INFO - Creating hardest triplet loss with margin=1.0
+2026-01-03 11:32:10,467 - src.triplet_network - INFO - OnlineTripletLoss initialized with margin=1.0, selector=hardest
+2026-01-03 11:32:10,615 - src.triplet_trainer - INFO - TripletTrainer initialized on cuda
+2026-01-03 11:32:10,616 - __main__ - INFO - Starting training...
+2026-01-03 11:32:10,616 - src.triplet_trainer - INFO - Starting training for 50 epochs
